@@ -11,7 +11,7 @@
 We are working hard to release the datasets, source code, and pre-trained models. Stay tuned!  
 
 📌 **What's Coming?**  
-- 📂 **Data**: Large-scale dataset for [Grounded Video Caption Generation].  
+- 📂 **Data**: (i) Large-scale automatically annotated pre-training dataset for Grounded Video Caption Generation, (ii) Small-scale, high-quality human-labelled dataset for fine-tuning and evaluation.  
 - 🖥️ **Code**: Training, evaluation, and inference scripts.  
 - 🏋️ **Models**: Pre-trained checkpoints for reproduction.  
 
