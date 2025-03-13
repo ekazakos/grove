@@ -4,7 +4,7 @@
 <sup>1</sup>Czech Institute of Informatics, Robotics and Cybernetics at the Czech Technical University in Prague  
 <sup>2</sup>Inria, École normale supérieure, CNRS, PSL Research University
 
-![Project Banner](images/banner.png)
+![Project Banner](teaser.png)
 
 **Data, Code, and Models - Coming Soon!** ⏳  
 
