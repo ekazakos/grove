@@ -4,6 +4,8 @@
 <sup>1</sup>Czech Institute of Informatics, Robotics and Cybernetics at the Czech Technical University in Prague  
 <sup>2</sup>Inria, École normale supérieure, CNRS, PSL Research University
 
+📄 [**arXiv**](https://arxiv.org/abs/2503.10781) | 🌐 [**Project Website**](https://ekazakos.github.io/grounded_video_caption_generation/)
+
 ![Project Banner](teaser.png)
 
 **Data, Code, and Models - Coming Soon!** ⏳  
@@ -12,9 +14,20 @@ We are working hard to release the datasets, source code, and pre-trained models
 
 📌 **What's Coming?**  
 - 📂 **Data**: (i) Large-scale automatically annotated pre-training dataset for Grounded Video Caption Generation, (ii) Small-scale, high-quality human-labelled dataset for fine-tuning and evaluation.  
-- 🖥️ **Code**: Training, evaluation, and inference scripts.  
-- 🏋️ **Models**: Pre-trained checkpoints for reproduction.  
+- 🖥️ **Code**: Training, evaluation, and inference scripts.
+- 🏋️ **Models**: Pre-trained checkpoints for reproduction. 
 
-Stay updated by ⭐ starring this repo and watching for updates!  
+Stay updated by ⭐ starring this repo and watching for updates!
 
-📬 For inquiries or collaborations, feel free to reach out.  
+📬 For inquiries or collaborations, feel free to reach out.
+
+---
+
+📖 **BibTeX**
+```bibtex
+@article{kazakos2025grove,
+  title={Large-scale Pre-training for Grounded Video Caption Generation},
+  author={Evangelos Kazakos and Cordelia Schmid and Josef Sivic},
+  journal={arXiv preprint arXiv:2503.10781},
+  year={2025}
+}
