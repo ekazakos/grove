@@ -8,6 +8,9 @@
 
 ![Project Banner](teaser.png)
 
+### 📢 News
+- 🔥 **25/06/2025**: Paper accepted to **ICCV 2025** 🎉
+
 **Data, Code, and Models - Coming Soon!** ⏳  
 
 We are working hard to release the datasets, source code, and pre-trained models. Stay tuned!  
