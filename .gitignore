@@ -1,0 +1,49 @@
+# Bytecode files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# PyTorch
+*.pt
+*.pth
+
+# Dataset directories (customize as needed)
+data/
+datasets/
+
+# Logs
+logs/
+*.log
+
+# OS generated files
+.DS_Store  # macOS desktop services store
+Thumbs.db  # Windows thumbnail cache
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Installers
+*.exe
+*.dll
+*.so
+
+# Miscellaneous
+*.csv
+*.json
+*.xml
+*.yaml
+*.yml
