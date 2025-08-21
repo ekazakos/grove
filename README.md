@@ -151,6 +151,12 @@ pip install -r requirements.txt
 
 - Download GROVE pre-trained on HowToGround1M from [link](https://drive.google.com/file/d/1cH4HcDQoBvVpZw5TfHtWGmbIX82R6T-a/view?usp=sharing)
 - Download GROVE fine-tuned on iGround from [link](https://drive.google.com/file/d/1gBanRUuz5CfNUWkRstFrQQpHpCzuhhnY/view?usp=sharing)
+- Download SAM checkpoint from [link](https://drive.google.com/file/d/1Am_IUCaGsr0pMMb-WFJ3cv5KpJfSMTZR/view?usp=sharing)
+- Run:
+  ```bash
+  mkdir checkpoints
+  mv /path/to/checkpoints checkpoints/
+  ```
 
 ## Training (using SLURM's *sbatch*)
 
@@ -158,7 +164,7 @@ pip install -r requirements.txt
   1. (Optional) Modify the sbatch configuration based on your cluster's configuration, though it is suggested to use the provided ones
   2. Modify the path to the data and checkpoint
 - Run:
-  ```batch
+  ```bash
   bash train_scripts/train_{howtoground,vidstg,anet}.sh
   ```
 
@@ -169,11 +175,11 @@ pip install -r requirements.txt
 Below, it is shown how to run inference & evaluation on iGround validation and test sets. Similarly, for the other datasets use the scripts found in `infer_eval_scripts/`
 
 - For iGround validation set:
-  ```batch
-  bash infer_eval_scripts/infer_eval_iground.sh /path/to/grove_ft_iground_ckpt.bin /path/to/save/token_embedings.pt /path/to/save/preds.pkl /path/to/iGround_val_set_raw.pkl /path/to/iground_videos_dir 0.5 /path/to/stanford-corenlp-full-2014-08-27
+  ```bash
+  bash infer_eval_scripts/infer_eval_iground.sh checkpoints/grove_ft_iground_ckpt.bin /path/to/save/token_embedings.pt /path/to/save/preds.pkl /path/to/iGround_val_set_raw.pkl /path/to/iground_videos_dir 0.5 /path/to/stanford-corenlp-full-2014-08-27
   ```
 - For iGround test set:
-  ```batch
-  bash infer_eval_scripts/infer_eval_iground.sh /path/to/grove_ft_iground_ckpt.bin /path/to/save/token_embedings.pt /path/to/save/preds.pkl /path/to/iGround_test_set_raw.pkl /path/to/iground_videos_dir 0.5 /path/to/stanford-corenlp-full-2014-08-27
+  ```bash
+  bash infer_eval_scripts/infer_eval_iground.sh checkpoints/grove_ft_iground_ckpt.bin /path/to/save/token_embedings.pt /path/to/save/preds.pkl /path/to/iGround_test_set_raw.pkl /path/to/iground_videos_dir 0.5 /path/to/stanford-corenlp-full-2014-08-27
   ```
 **Note**: By downloading Stanford CoreNLP from the links provided in the installation instructions, you will get a directory `stanford-corenlp-full-2014-08-27` which contains Stanford CoreNLP 3.4.1 (used above for evaluation in iGround) and a directory `stanford-corenlp-4.5.7` which contains Stanford CoreNLP 4.5.7 (used for evaluation in ActivityNet-Entities).
