@@ -9,6 +9,7 @@
 ![Project Banner](teaser.png)
 
 ### 📢 News
+- 🤗 **02/09/2025**: We release **grove-transformers** — a lightweight, inference-only interface for GROVE, implemented with 🤗 Transformers.
 - 💻 **21/08/2025**: Code, checkpoints, and datasets released!
 - 🔥 **25/06/2025**: Paper accepted to **ICCV 2025** 🎉
 
@@ -23,6 +24,14 @@
   year={2025}
 }
 ```
+
+## Quick start
+
+If you only need **inference for GROVE** (quick experimentation, no training), use the lightweight [`grove-transformers`](./grove_transformers) package instead. Installation instructions are in its [README](./grove_transformers/README.md) and on the [Hugging Face Hub](https://huggingface.co/ekazakos/grove).
+
+If you want to **train and/or evaluate GROVE** end-to-end, follow the instructions below.
+
+---
 
 ## Installation instructions
 

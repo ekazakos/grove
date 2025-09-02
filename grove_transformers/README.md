@@ -1,21 +1,110 @@
-# grove_new
+This package is a implemented with 🤗 Transformers and provides a lightweight, inference-only interface for GROVE.
 
-Legacy GROVE refactor scaffold (faithful reproduction adapted to HuggingFace patterns).
+---
 
-Components:
-- GroveConfig: extends LlamaConfig with GROVE / SAM / loss parameters.
-- GroveForCausalLM: wraps legacy GROVE model pathways (training vs inference), SAM grounding encoder, text projection layer.
-- GroveTokenizer / GroveProcessor: placeholders pending migration of special token handling.
+## Installation
 
-Differences vs original:
-- Centralizes configuration in GroveConfig (no ad-hoc attribute inserts outside init).
-- Loss weighting pulled from config/kwargs and stored as module attributes.
-- Device moves dynamic (no hard-coded .cuda()).
-- Detached experimental CLIP fusion prototype (not used; staying with SAM + LLaMA per legacy directory).
+Install the inference package:
 
-Next steps (legacy alignment):
-1. Port evaluate() method into GroveForCausalLM (optional if needed for generation-first pass).
-2. Migrate tokenizer special tokens & indices from legacy tokenizer usage.
-3. Provide checkpoint weight mapping script (old key -> new module paths).
-4. Add tests: model_forward (train), inference (inference=True), get_grounding_encoder_embs.
-5. Integrate process for dense_pe retrieval through standard forward utilities.
+If you've already cloned the main repo from [https://github.com/ekazakos/grove/](https://github.com/ekazakos/grove/), then run:
+```bash
+cd grove/grove_transformers
+pip install -e .[torch] --extra-index-url https://download.pytorch.org/whl/cu124
+pip install flash-attn==2.7.3 --no-build-isolation
+```
+
+
+Alternatively, run:
+```bash
+pip install -e "git+https://github.com/ekazakos/grove.git#subdirectory=grove_transformers[torch]" \
+  --extra-index-url https://download.pytorch.org/whl/cu124
+pip install flash-attn==2.7.3 --no-build-isolation
+```
+
+Also, install **mmcv**, **mmdetection** and **SAM2** as shown [here](https://github.com/ekazakos/grove?tab=readme-ov-file#install-mmdetection).
+
+### Alternative (quick hack)
+
+If you already cloned the full repo and want to avoid installing the package, you can make it importable by setting:
+
+```bash
+export PYTHONPATH=/path/to/grove/grove_transformers
+```
+
+---
+
+## Notes
+- This model requires Python ≥3.11.
+- Auto* classes (e.g. `AutoTokenizer`) are **not supported**; use the custom `Grove*` classes.
+
+---
+
+## Example Usage 1: Minimal (automatic metadata)
+
+If you don’t have precomputed token embeddings for GROVE's vocabulary or video metadata, just pass the video path.  
+GROVE will compute everything internally.
+
+```python
+from grove_transformers import GroveTokenizer, GroveForCausalLM, GroveProcessor
+
+tokenizer = GroveTokenizer.from_pretrained("ekazakos/grove")
+model = GroveForCausalLM.from_pretrained(
+    "ekazakos/grove",
+    torch_dtype=torch.bfloat16,
+    attn_implementation="flash_attention_2",
+    low_cpu_mem_usage=True,
+)
+processor = GroveProcessor.from_pretrained("ekazakos/grove")
+
+outputs = processor.generate(
+    model,
+    video_path,
+    token_embeddings=None,
+    device="cuda",
+    start_frame=None,
+    end_frame=None,
+    video_width=None,
+    video_height=None,
+    video_fps=None
+)
+```
+
+---
+
+## Example Usage 2: With precomputed inputs
+
+If you have precomputed token embeddings for GROVE's vocabulary and video metadata (e.g. from datasets like **HowToGround1M** or **iGround**), you can pass them directly for faster inference and precise trimming.
+
+```python
+outputs = processor.generate(
+    model,
+    video_path,
+    token_embeddings=precomputed_embeddings,
+    device="cuda",
+    start_frame=dataset_meta["start_frame"],
+    end_frame=dataset_meta["end_frame"],
+    video_width=dataset_meta["width"],
+    video_height=dataset_meta["height"],
+    video_fps=dataset_meta["fps"]
+)
+```
+
+---
+
+## Notes
+
+- **`token_embeddings`**: pass precomputed token embeddings for speed, or `None` to compute on the fly.  
+  For precomputing token embeddings for GROVE's vocabulary, see [embed_tokens.sh](https://github.com/ekazakos/grove/blob/main/embed_tokens.sh).  
+- **Video metadata** (`start_frame`, `end_frame`, `video_width`, `video_height`, `video_fps`): pass if available, otherwise `None` → GROVE computes automatically.  
+- **Trimming**: `start_frame`/`end_frame` let you process only part of a video.  
+
+---
+
+```bibtex
+@article{kazakos2025grove,
+  title={Large-scale Pre-training for Grounded Video Caption Generation},
+  author={Evangelos Kazakos and Cordelia Schmid and Josef Sivic},
+  journal={arXiv preprint arXiv:2503.10781},
+  year={2025}
+}
+```

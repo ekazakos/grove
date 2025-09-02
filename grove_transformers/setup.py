@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="grove-transformers",
     version="0.1.0",
-    python_requires=">=3.12",
+    python_requires=">=3.11",
     packages=find_packages(),
     install_requires=[
         "ffmpeg-python==0.2.0",
@@ -15,7 +15,7 @@ setup(
         "bleach",
         "sentencepiece",
         "scikit-learn",
-        "flash-attn==2.7.3",
+        "accelerate>=0.26.0",
     ],
     extras_require={
         "torch": [
