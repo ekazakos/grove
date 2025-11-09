@@ -131,6 +131,8 @@ pip install -r requirements.txt
      bash scripts/preprocess_howtoground_annot.py /path/to/{HowToGround1M,iGround}.pkl target_dir
      ```
 
+**Note**: The iGround annotations include both *processed* and *raw* versions (e.g., `iGround_train_set_processed.pkl` vs `iGround_train_set_raw.pkl`). The *processed* annotations were used to train GROVE. Processing merges multiple instances of the same object type **per frame** into a single annotation by taking the union of all bounding boxes for that instance. The *raw* annotations are unprocessed — the same object type may appear multiple times in a frame, each with its own distinct bounding box per instance.
+
 ---
 
 ### ActivityNet-Entities
