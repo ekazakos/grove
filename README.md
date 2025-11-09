@@ -18,11 +18,11 @@
 
 📖 **BibTeX**
 ```bibtex
-@article{kazakos2025grove,
-  title={Large-scale Pre-training for Grounded Video Caption Generation},
-  author={Evangelos Kazakos and Cordelia Schmid and Josef Sivic},
-  journal={arXiv preprint arXiv:2503.10781},
-  year={2025}
+@inproceedings{kazakos2025grove,
+  title     = {Large-scale Pre-training for Grounded Video Caption Generation},
+  author    = {Evangelos Kazakos and Cordelia Schmid and Josef Sivic},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year      = {2025}
 }
 ```
 
