@@ -9,6 +9,7 @@
 ![Project Banner](teaser.png)
 
 ### 📢 News
+- 📚 **09/11/2025**: The **HowToGround1M** and **iGround** datasets are now available on 🤗 Hugging Face: [HowToGround1M](https://huggingface.co/datasets/ekazakos/HowToGround1M) | [iGround](https://huggingface.co/datasets/ekazakos/iGround). They can be loaded directly with `load_dataset()` from the 🤗 Datasets library.
 - 🤗 **02/09/2025**: We release **grove-transformers** — a lightweight, inference-only interface for GROVE, implemented with 🤗 Transformers.
 - 💻 **21/08/2025**: Code, checkpoints, and datasets released!
 - 🔥 **25/06/2025**: Paper accepted to **ICCV 2025** 🎉
