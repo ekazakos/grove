@@ -9,6 +9,7 @@
 ![Project Banner](teaser.png)
 
 ### 📢 News
+- 🗂️ **18/01/2027**: We updated the dataset download process. You can now download the videos of our **HowToGround1M**, but also those of the original **HowTo100M** in addition to **iGround**. See the updated instructions in the README.
 - 📚 **09/11/2025**: The **HowToGround1M** and **iGround** datasets are now available on 🤗 Hugging Face: [HowToGround1M](https://huggingface.co/datasets/ekazakos/HowToGround1M) | [iGround](https://huggingface.co/datasets/ekazakos/iGround). They can be loaded directly with `load_dataset()` from the 🤗 Datasets library.
 - 🤗 **02/09/2025**: We release **grove-transformers** — a lightweight, inference-only interface for GROVE, implemented with 🤗 Transformers.
 - 💻 **21/08/2025**: Code, checkpoints, and datasets released!
@@ -107,32 +108,56 @@ pip install -r requirements.txt
 
 ## Data Preparation
 
-### HowToGround1M & iGround
+### HowToGround1M / iGround / HowTo100M
 
-1. **Download HowTo100M videos** (for pre-training on HowToGround1M) 
-   - Follow the instructions in the [HowTo100M webpage](https://www.di.ens.fr/willow/research/howto100m/)
-   - The webpage has some broken links and is currently under construction. The domain will change and the link above
-   will be updated to the new domain
-
-2. **Download iGround videos** (for fine-tuning/evaluating on iGround)
-   - Fill in [this form](https://docs.google.com/forms/d/e/1FAIpQLSeqYqoFludNXy-2iQHnmIJhN8FfB0ieqnz8GWWF6hqfAEZexw/viewform?usp=header) to obtain links to the iGround videos
-   - Run the following script to download the iGround videos using the provided links
-     ```bash
-     bash scripts/download_iGround.sh iGround_links.txt /path/to/iground_videos_dir
-     ```
-   - **Caution**: the links expire in 7 days
-
-3. **Download annotations**  
+1. **Download annotations**  
    - [HowToGround1M annotations](https://drive.google.com/drive/folders/1462NzzloYlTecJpn71jios4_cU6h4dQd?usp=sharing)  
-   - [iGround annotations](https://drive.google.com/drive/folders/1tCGeiRCo5eYh6u8TL02OPOP42EiskNrp?usp=sharing)  
+   - [iGround annotations](https://drive.google.com/drive/folders/1tCGeiRCo5eYh6u8TL02OPOP42EiskNrp?usp=sharing)
 
-4. **Preprocess annotations**
+2. **Preprocess annotations**
    - Run the following command to split the annotations into separate files per video:
      ```bash
      bash scripts/preprocess_howtoground_annot.py /path/to/{HowToGround1M,iGround}.pkl target_dir
      ```
+3. **Download iGround videos** (for fine-tuning/evaluating on iGround)
+   - Fill in [this form](https://docs.google.com/forms/d/e/1FAIpQLSeqYqoFludNXy-2iQHnmIJhN8FfB0ieqnz8GWWF6hqfAEZexw/viewform?usp=header) to obtain an access token
+   - Run `$export TOKEN=YOUR_TOKEN`
+   - Run the following script to download the iGround videos using the provided links
+     ```bash
+     bash scripts/download_datasets.sh iground /path/to/iground_videos_dir /path/to/iGround_annotations/*_raw.pkl
+     ```
 
+4. **Download HowToGround1M videos** (for pre-training on HowToGround1M)
+   - Fill in [this form](https://docs.google.com/forms/d/e/1FAIpQLSeK7zHcN5udVrzjt5rs34cIbICuEXLJvxu8IxW-GfzObq3-qw/viewform?usp=dialog) to obtain an access token
+   - Run `$export TOKEN=YOUR_TOKEN`
+   - Run the following script to download the HowToGround1M videos using the provided links
+     ```bash
+     bash scripts/download_datasets.sh howtoground1m /path/to/howtoground1m_videos_dir /path/to/HowToGround1M_annotations/HowToGround1M_automatic_annotation_method.pkl
+     ```
+     
 **Note**: The iGround annotations include both *processed* and *raw* versions (e.g., `iGround_train_set_processed.pkl` vs `iGround_train_set_raw.pkl`). The *processed* annotations were used to train GROVE. Processing merges multiple instances of the same object type **per frame** into a single annotation by taking the union of all bounding boxes for that instance. The *raw* annotations are unprocessed — the same object type may appear multiple times in a frame, each with its own distinct bounding box per instance.
+<br>
+### Access to the full HowTo100M dataset 
+We also provide access to the original full HowTo100M dataset videos. To download:
+ - Fill in [this form](https://docs.google.com/forms/d/e/1FAIpQLSdp_PlR2xnUM1RACyBdzbNt9mUnhARIfJs2JmTcLiHVRFjv7g/viewform?usp=dialog) to obtain an access token
+ - Run `$export TOKEN=YOUR_TOKEN`
+ - Run the following script to download the Howto100M videos using the provided links
+   ```bash
+   bash scripts/download_datasets.sh howto100m /path/to/howto100m_videos_dir
+   ```
+
+If you use HowTo100M in your research, please also cite:
+
+```bibtex
+@inproceedings{miech19howto100m,
+   title={How{T}o100{M}: {L}earning a {T}ext-{V}ideo {E}mbedding by {W}atching {H}undred {M}illion {N}arrated {V}ideo {C}lips},
+   author={Miech, Antoine and Zhukov, Dimitri and Alayrac, Jean-Baptiste and Tapaswi, Makarand and Laptev, Ivan and Sivic, Josef},
+   booktitle={ICCV},
+   year={2019},
+}
+```
+
+## CAUTION: the links expire in 14 days!
 
 ---
 
